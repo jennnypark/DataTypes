@@ -1,0 +1,40 @@
+**********************************************************************************************/
+NULLs
+/*********************************************************************************************	
+Source:
+
+A NULL value is different from a blank value. A field with NULL is one that was not filled in when
+the record was created. 
+
+It is not possibly to test for NULL values with comparison operators (=, <, >, or <>). The "IS NULL"
+and "IS NOT NULL" operators will be used instead. 
+
+/* SYNTAX */
+
+select		*
+from		dbo.table_name
+where		[column_name] is not null 
+
+select		*
+from		dbo.table_name
+where		[column_name] is null 
+
+-- ISNULL() function lets you return an alternative value when an expression is NULL (NULL and 'null' are different)
+
+select ISNULL(null,'this is null'), ISNULL('null', 'this is not null')
+
+-- NULLIF() function returns NULL if two expressions are equal, otherwise it returns the first expression.
+		** NULLIF is helpful when you want to convert columns to a null value. For example, if a value is blank, then set it to null
+
+select	NULLIF([column_name], '')
+
+-- COALESCE() function returns the first non-null value in a list.
+
+select	COALESCE(null, null, 'null', 'hello')
+
+
+********* THINGS TO BE AWARE OF ************
+Concatenating/Adding a NULL value and non-NULL value will yield NULL. 
+SELECT NULL + 5 will return null. In order to ignore the null value, you will execute: SELECT ISNULL(NULL, 0) + 5 
+SELLECT NULL + 'hello' will also return null, in order to ignore the null, you should execute: SELECT CONCAT(NULL, 'hello')
+Joining on a null will return every possible combination of nulls. 
