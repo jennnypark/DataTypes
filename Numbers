@@ -1,0 +1,49 @@
+/**********************************************************************************************
+  Numerical Data Types
+*********************************************************************************************/
+
+Data type			  Description	
+__________			_______________________________________
+bit					    Integer that can be 0, 1, or NULL	 
+tinyint				  Allows whole numbers from 0 to 255
+smallint			  Allows whole numbers between -32,768 and 32,767
+int					    Allows whole numbers between -2,147,483,648 and 2,147,483,647
+bigint				  Allows whole numbers between -9,223,372,036,854,775,808 and 9,223,372,036,854,775,807	
+decimal(p,s)		Fixed precision and scale numbers. Allows numbers from -10^38 +1 to 10^38 –1.
+				      	The p parameter indicates the maximum total number of digits that can be stored (both to the left and to the right of the decimal point).
+					      p must be a value from 1 to 38. Default is 18.
+					      The s parameter indicates the maximum number of digits stored to the right of the decimal point. 
+					      s must be a value from 0 to p. Default value is 0	
+numeric(p,s)		Fixed precision and scale numbers. Allows numbers from -10^38 +1 to 10^38 –1.
+					      The p parameter indicates the maximum total number of digits that can be stored (both to the left and to the right of the decimal point). 
+					      p must be a value from 1 to 38. Default is 18.
+					      The s parameter indicates the maximum number of digits stored to the right of the decimal point. 
+					      s must be a value from 0 to p. Default value is 0
+smallmoney			Monetary data from -214,748.3648 to 214,748.3647
+money				    Monetary data from -922,337,203,685,477.5808 to 922,337,203,685,477.5807
+float(n)			  Floating precision number data from -1.79E + 308 to 1.79E + 308.
+					      The n parameter indicates whether the field should hold 4 or 8 bytes. 
+					      float(24) holds a 4-byte field and float(53) holds an 8-byte field. Default value of n is 53.
+real				    Floating precision number data from -3.40E + 38 to 3.40E + 38
+
+**********************************************************************************
+Things To Be Aware Of
+Source: https://learnsql.com/blog/understanding-numerical-data-types-sql/
+**********************************************************************************
+
+In SQL, numbers can be defined as exact or approximate.
+
+Exact: Value is stored as a literal representation of a number's value
+		Examples: smallint, integer, bigint, numeric(p,s), and decimal(p,s) 
+			decimal(p,s) vs. numeric(p,s) - numeric determines exact precision and scale while decimal only specifies the exact scale. 
+
+Approximate: Value is stored as an approximation of the exact number
+			Examples: float, real
+
+** Financial data should always be stored as a decimal or a numeric because it most closely preserves the original value. 
+
+EUR currency - commas are periods and period are columns. For numeric values with commas, you cannot convert them into numeric datatypes. 
+
+select		cast(replace('12,100.29', ',', '') as decimal(19,2))
+select		cast(replace(replace('12.100,29','.',''),',','.') as decimal(19,2))
+
