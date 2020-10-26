@@ -1,0 +1,32 @@
+**********************************************************************************************/
+Date and Time data Types
+/*********************************************************************************************	
+
+Data type			  Description	
+_____________		______________________________________________________________________________
+datetime		  	From January 1, 1753 to December 31, 9999 with an accuracy of 3.33 milliseconds
+datetime2		  	From January 1, 0001 to December 31, 9999 with an accuracy of 100 nanoseconds
+smalldatetime		From January 1, 1900 to June 6, 2079 with an accuracy of 1 minute
+date				    Store a date only. From January 1, 0001 to December 31, 9999
+time			    	Store a time only to an accuracy of 100 nanoseconds
+datetimeoffset	The same as datetime2 with the addition of a time zone offset
+timestamp			  Stores a unique number that gets updated every time a row gets created or modified. 
+					      The timestamp value is based upon an internal clock and does not correspond to real time. 
+				      	Each table may have only one timestamp variable
+
+**********************************************************************************
+			Things to consider when converting fields to dates:
+**********************************************************************************
+
+-- If original format is in : dd.mm.yy
+select		convert(nvarchar,cast(replace('12.01.20','.','-') as datetime),103)
+	-- 01/12/2020
+
+-- If original format is in: yyyymmdd
+select		convert(datetime,convert(nvarchar(8), '20120112'))
+-- 2012-01-12 00:00:00.000
+
+
+-- If original format is a serial number from Excel 
+select		CONVERT(varchar(25),cast(41869 as datetime),120)
+-- 2014-08-20 00:00:00
